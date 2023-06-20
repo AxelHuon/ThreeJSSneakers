@@ -4,6 +4,10 @@ import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader.js";
 import {MTLLoader} from "three/examples/jsm/loaders/MTLLoader.js";
 import GUI from 'lil-gui';
 import {gsap, TweenMax} from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// Enregistrez le plugin ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 
 
 // Création de la scène
@@ -13,7 +17,6 @@ const scene = new THREE.Scene();
 const loader = new OBJLoader();
 
 // Création de la lumière
-
 const light1 = new THREE.AmbientLight(0xffffff, 0.2);
 light1.position.set(0, 0, 4);
 scene.add(light1);
@@ -127,12 +130,6 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	if (travisScottMocha) {
 		// Animation de l'objet
 		
-		const gui = new GUI()
-		const cubeFolder = gui.addFolder('Sneaker')
-		
-		cubeFolder.add(travisScottMocha.rotation, 'x', 0, 20)
-		cubeFolder.add(travisScottMocha.rotation, 'y', 0, 20)
-		cubeFolder.add(travisScottMocha.rotation, 'z', 0, 20)
 		
 		function animateObject(pose = 0) {
 			console.log(pose)
@@ -189,8 +186,6 @@ window.addEventListener('mousemove', function(event) {
 });
 
 
-
-
 // Fonction d'animation
 const animate = () => {
 	
@@ -199,7 +194,121 @@ const animate = () => {
 	window.requestAnimationFrame(animate);
 	
 };
-
 animate();
 
 
+gsap.to('.logo-nike', {
+	top: "50%",
+	opacity: 0,
+	scale : 3.2,
+	scrollTrigger: {
+		trigger: '.section-intro',
+		start: '-30px top',
+		end: 'bottom+=100px',
+		scrub: true
+	}
+});
+
+
+
+
+
+// Création de la scène
+const scene2 = new THREE.Scene();
+
+// Tailles de la fenêtre
+let sizes2 = {
+	width: window.innerWidth,
+	height: window.innerHeight
+};
+
+// Création de la caméra
+let camera2 = new THREE.PerspectiveCamera(45, sizes2.width / sizes2.height);
+camera2.position.set(0, 0, 4);
+scene2.add(camera2);
+
+
+
+
+// Création du renderer
+const canvas2 = document.querySelector(".nike-logo");
+const renderer2 = new THREE.WebGLRenderer({
+	canvas: canvas2, alpha: true, antialias: true,
+});
+renderer2.toneMapping = THREE.ACESFilmicToneMapping;
+renderer2.toneMappingExposure = 1.25;
+
+// Fonction de redimensionnement
+const resize2 = () => {
+	sizes2.width = window.innerWidth
+	sizes2.height = window.innerHeight;
+	camera2.aspect = sizes2.width / sizes2.height;
+	camera2.updateProjectionMatrix();
+	renderer2.setSize(sizes2.width, sizes2.height);
+};
+
+resize2();
+
+window.addEventListener('resize', resize2);
+
+
+
+
+
+
+
+const controls2 = new OrbitControls(camera, canvas);
+controls2.enabled = false;
+
+
+loader.load(
+	'/assets/NikeLogo/nike.obj',
+	function (object) {
+		// Code à exécuter lorsque le fichier est chargé
+		scene2.add(object); // Ajoute l'objet à la scène
+		
+		object.scale.set(1, 1, 1);
+		const gui = new GUI()
+		const cubeFolder = gui.addFolder('Logo')
+		
+/*		cubeFolder.add(object.rotation, 'x', 0, 20)
+		cubeFolder.add(object.rotation, 'y', 0, 20)
+		cubeFolder.add(object.rotation, 'z', 0, 20)
+		*/
+		cubeFolder.add(object.position, 'x', -20, 20)
+		cubeFolder.add(object.position, 'y', -20, 20)
+		cubeFolder.add(object.position, 'z', -20, 20)
+		
+	},
+	function (xhr) {
+		// Code à exécuter pendant le chargement
+		console.log((xhr.loaded / xhr.total * 100) + '% chargé');
+	},
+	function (error) {
+		// Code à exécuter en cas d'erreur de chargement
+		console.error('Erreur de chargement', error);
+	}
+);
+
+
+
+
+
+// Création de la lumière
+const light4 = new THREE.AmbientLight(0xffffff, 1);
+light4.position.set(0, 0, 4);
+scene2.add(light4);
+
+
+
+
+
+
+const animate2 = () => {
+	
+	controls2.update();
+	renderer2.render(scene2, camera2);
+	window.requestAnimationFrame(animate2);
+	
+};
+animate2();

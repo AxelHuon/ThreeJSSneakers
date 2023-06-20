@@ -54,30 +54,19 @@ table {
 
 @font-face {
   font-family: "Clash Display";
-  src: url("fonts/ClashDisplay-Variable.otf") format("opentype");
+  src: url("./fonts/ClashDisplay-Variable.ttf") format("truetype");
 }
-canvas {
-  z-index: 9999;
-  position: fixed;
-  right: 0;
-  top: 0;
+.nike-logo {
+  position: relative;
+  z-index: 9999999999;
 }
 
-.container-intro {
-  display: flex;
-  background-size: cover;
-  width: 100%;
-  justify-content: space-between;
-  z-index: 99999;
+body {
+  height: 200vh;
+  position: relative;
+  background: black;
 }
-.container-intro .logo-nike {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  z-index: 99999;
-  transform: translate(-50%, 0%);
-}
-.container-intro::before {
+body::before {
   content: "";
   width: 100%;
   height: 100%;
@@ -89,7 +78,7 @@ canvas {
   z-index: 999;
   opacity: 0.03;
 }
-.container-intro::after {
+body::after {
   content: "";
   width: 100%;
   height: 100%;
@@ -100,12 +89,27 @@ canvas {
   background-image: url("../images/background.png");
   z-index: 99;
 }
+
+.container-intro {
+  display: flex;
+  background-size: cover;
+  width: 100%;
+  justify-content: space-between;
+  z-index: 99999;
+}
+.container-intro .logo-nike {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+}
 .container-intro > section {
   z-index: 9999;
 }
 .container-intro canvas {
   z-index: 9999;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
 }
@@ -116,6 +120,11 @@ canvas {
 
 .lil-gui {
   z-index: 999999999999 !important;
+}
+
+.container-logo-nike-webgl {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .text-96 {
@@ -209,6 +218,12 @@ canvas {
   -webkit-box-shadow: 0px 0px 105px 45px rgba(213, 46, 255, 0.14);
   -moz-box-shadow: 0px 0px 105px 45px rgba(213, 46, 255, 0.14);
   box-shadow: 0px 0px 105px 45px rgba(213, 46, 255, 0.14);
+  transition: box-shadow 0.2s ease-in-out;
+}
+.section-intro-views-sneakers button:hover {
+  -webkit-box-shadow: 0px 0px 105px 45px rgba(213, 46, 255, 0.2);
+  -moz-box-shadow: 0px 0px 105px 45px rgba(213, 46, 255, 0.2);
+  box-shadow: 0px 0px 105px 45px rgba(213, 46, 255, 0.2);
 }
 .section-intro-views-sneakers button::after {
   content: "";
