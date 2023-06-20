@@ -94,7 +94,7 @@ table {
   z-index: 99;
 }
 .container > section {
-  z-index: 9999999;
+  z-index: 9999;
 }
 .container canvas {
   z-index: 9999;
@@ -151,6 +151,10 @@ table {
 }
 .section-intro p {
   max-width: 40vw;
+}
+.section-intro-views-sneakers {
+  position: relative !important;
+  z-index: 9999999;
 }
 
 /*# sourceMappingURL=main.css.map */

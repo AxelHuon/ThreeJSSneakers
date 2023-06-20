@@ -9,4 +9,9 @@
   p{
     max-width: 40vw;
   }
+
+  &-views-sneakers{
+    position: relative !important;
+    z-index: 9999999;
+  }
 }

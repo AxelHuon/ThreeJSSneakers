@@ -29,7 +29,8 @@ TweenMax.to(light2, 2, {intensity: 0.6, delay: 2});
 
 // Tailles de la fenêtre
 let sizes = {
-	width: window.innerWidth / 2 - 50, height: window.innerHeight
+	width: window.innerWidth / 2 - 50,
+	height: window.innerHeight
 };
 
 // Création de la caméra
@@ -63,13 +64,10 @@ window.addEventListener('resize', resize);
 // Création des contrôles de l'Orbit
 const controls = new OrbitControls(camera, canvas);
 controls.enabled = false;
-controls.enableDamping = true;
-controls.enableZoom = false; // Disable zoom with scroll
-controls.enablePan = false; // Disable panning with left-click
 
 // Activer les contrôles après un délai
 setTimeout(() => {
-	controls.enabled = true;
+	controls.enabled = false;
 }, 3000);
 
 
@@ -105,7 +103,7 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	// Ajout de l'objet à la scène
 	scene.add(object);
 	// Configuration de l'échelle, de la position et de la rotation de l'objet
-	object.scale.set(8, 8, 8);
+	object.scale.set(9, 9, 9);
 	object.name = 'travisScottMocha';
 	object.position.set(2.3, 0, 0);
 	object.rotation.set(0, -6, -1);
@@ -168,6 +166,23 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 }, function (error) {
 	console.error('Erreur de chargement', error);
 });
+
+window.addEventListener('mousemove', function(event) {
+	
+	travisScottMocha = scene.getObjectByName('travisScottMocha');
+	
+	
+	// Calculez la différence de position de la souris
+	var deltaX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+	var deltaY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+	
+	// Appliquez la rotation à votre objet
+	
+	travisScottMocha.rotation.x += deltaY * 0.001; // Ajustez la vitesse de rotation selon vos besoins
+	travisScottMocha.rotation.y += deltaX * 0.001; // Ajustez la vitesse de rotation selon vos besoins
+});
+
+
 
 
 // Fonction d'animation
