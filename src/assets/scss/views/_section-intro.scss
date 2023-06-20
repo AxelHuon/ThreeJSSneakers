@@ -1,0 +1,12 @@
+.section-intro{
+  width: 50%;
+  padding-left: 5%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  p{
+    max-width: 40vw;
+  }
+}

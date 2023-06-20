@@ -1,10 +1,9 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
+import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader.js";
+import {MTLLoader} from "three/examples/jsm/loaders/MTLLoader.js";
 import GUI from 'lil-gui';
-import { gsap, TweenMax } from 'gsap';
-
+import {gsap, TweenMax} from 'gsap';
 
 
 // Création de la scène
@@ -25,17 +24,12 @@ light2.position.set(0, -5, 4);
 scene.add(light2);
 
 
-
-TweenMax.to(light2, 2, { intensity: 0.6, delay:2 });
-
-
-
+TweenMax.to(light2, 2, {intensity: 0.6, delay: 2});
 
 
 // Tailles de la fenêtre
 let sizes = {
-	width: window.innerWidth / 2 - 50,
-	height:  window.innerHeight
+	width: window.innerWidth / 2 - 50, height: window.innerHeight
 };
 
 // Création de la caméra
@@ -46,17 +40,14 @@ scene.add(camera);
 // Création du renderer
 const canvas = document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({
-	canvas: canvas,
-	alpha: true,
-	antialias :true,
+	canvas: canvas, alpha: true, antialias: true,
 });
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.25;
 
 // Fonction de redimensionnement
 const resize = () => {
-	sizes.width = window.innerWidth / 2 - 50,
-	sizes.height = window.innerHeight;
+	sizes.width = window.innerWidth / 2 - 50, sizes.height = window.innerHeight;
 	
 	camera.aspect = sizes.width / sizes.height;
 	camera.updateProjectionMatrix();
@@ -82,13 +73,9 @@ setTimeout(() => {
 }, 3000);
 
 
-
-// Chargement des textures
+// Chargement des textures et de l'object
 const textureLoader = new THREE.TextureLoader();
 let travisScottMocha
-let animInitFinish = false
-// Chargement de l'objet
-
 loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', function (object) {
 	// Chargement de la texture diffuse
 	textureLoader.load('/assets/sneakers/travisScottMocha/baked_mesh_tex0.png', function (diffuseTexture) {
@@ -117,24 +104,63 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	
 	// Ajout de l'objet à la scène
 	scene.add(object);
-	
 	// Configuration de l'échelle, de la position et de la rotation de l'objet
-	object.scale.set(9, 9, 9);
+	object.scale.set(8, 8, 8);
 	object.name = 'travisScottMocha';
 	object.position.set(2.3, 0, 0);
 	object.rotation.set(0, -6, -1);
 	// Récupération de l'objet à animer
 	travisScottMocha = scene.getObjectByName('travisScottMocha');
-	console.log(travisScottMocha)
+	
+	
+	let button1 = document.getElementById("button1")
+	let button2 = document.getElementById("button2")
+	let button3 = document.getElementById("button3")
+	
+	
 	
 	
 	if (travisScottMocha) {
 		// Animation de l'objet
-		function animateObject() {
-			TweenMax.to(travisScottMocha.rotation, 3, { y: 3.61 });
-			TweenMax.to(travisScottMocha.position, 3, { x: -0.4 });
-			requestAnimationFrame(animateObject);
+		
+		const gui = new GUI()
+		const cubeFolder = gui.addFolder('Sneaker')
+		
+		cubeFolder.add(travisScottMocha.rotation, 'x', 0, 20)
+		cubeFolder.add(travisScottMocha.rotation, 'y', 0, 20)
+		cubeFolder.add(travisScottMocha.rotation, 'z', 0, 20)
+		
+		function animateObject(pose = 0) {
+			console.log(pose)
+			if(pose === 0){
+				TweenMax.to(travisScottMocha.rotation, 3, {y: 3.61});
+				TweenMax.to(travisScottMocha.position, 3, {x: -0.4});
+				requestAnimationFrame(animateObject);
+			}else if (pose === 1){
+				TweenMax.to(travisScottMocha.position, 1, {x: 0});
+				TweenMax.to(travisScottMocha.rotation, 1, {y: 3, x:0,z:0});
+			}else if (pose === 2){
+				TweenMax.to(travisScottMocha.position, 1, {x: 0});
+				TweenMax.to(travisScottMocha.rotation, 1, {y: 3.78, x:0,z:0});
+			}else if (pose === 3){
+				TweenMax.to(travisScottMocha.position, 1, {x: 0});
+				TweenMax.to(travisScottMocha.rotation, 1, {y: 0.82, x:0,z:0});
+			}
 		}
+		
+		
+		button1.addEventListener("click", () => {
+			animateObject(1)
+		})
+		button2.addEventListener("click", () => {
+			animateObject(2)
+		})
+		button3.addEventListener("click", () => {
+			animateObject(3)
+		})
+		
+		
+		
 		animateObject();
 	}
 }, function (xhr) {
@@ -144,14 +170,15 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 });
 
 
-
-
 // Fonction d'animation
 const animate = () => {
-
+	
 	controls.update();
 	renderer.render(scene, camera);
 	window.requestAnimationFrame(animate);
+	
 };
 
 animate();
+
+

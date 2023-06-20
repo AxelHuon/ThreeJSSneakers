@@ -4,6 +4,13 @@
   width: 100%;
   justify-content: space-between;
   z-index: 99999;
+  .logo-nike{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    z-index: 99999;
+    transform: translate(-50%, 0%)
+  }
   &::before{
     content: "";
     width: 100%;
@@ -27,11 +34,22 @@
     background-image: url("../images/background.png");
     z-index: 99;
   }
+  > section{
+    z-index: 9999999;
+  }
   canvas{
     z-index: 9999;
+    position: fixed;
+    right: 0;
+    top: 0;
   }
   .text-section{
     width: 50%;
     z-index: 9999;
   }
+}
+
+
+.lil-gui{
+  z-index: 999999999999 !important;
 }

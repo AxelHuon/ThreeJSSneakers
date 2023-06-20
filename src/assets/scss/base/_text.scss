@@ -1,11 +1,16 @@
-.text-100{
+.text-96 {
   font-size: 100px;
   line-height: 110px;
 }
 
+.text-16 {
+  font-size: 16px;
+  line-height: 22px;
+}
 
-.color-brown{
-  color: black;
+
+.color-white{
+  color: white;
 }
 
 
@@ -14,8 +19,11 @@
   font-weight:400;
 }
 
-
-.bold{
+.light{
+  font-family: "Clash Display";
+  font-weight:300;
+}
+.medium{
   font-family: "Clash Display";
   font-weight:500;
 }

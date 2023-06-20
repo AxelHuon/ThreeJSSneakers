@@ -63,6 +63,13 @@ table {
   justify-content: space-between;
   z-index: 99999;
 }
+.container .logo-nike {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  z-index: 99999;
+  transform: translate(-50%, 0%);
+}
 .container::before {
   content: "";
   width: 100%;
@@ -86,21 +93,36 @@ table {
   background-image: url("../images/background.png");
   z-index: 99;
 }
+.container > section {
+  z-index: 9999999;
+}
 .container canvas {
   z-index: 9999;
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 .container .text-section {
   width: 50%;
   z-index: 9999;
 }
 
-.text-100 {
+.lil-gui {
+  z-index: 999999999999 !important;
+}
+
+.text-96 {
   font-size: 100px;
   line-height: 110px;
 }
 
-.color-brown {
-  color: black;
+.text-16 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.color-white {
+  color: white;
 }
 
 .regular {
@@ -108,18 +130,27 @@ table {
   font-weight: 400;
 }
 
-.bold {
+.light {
+  font-family: "Clash Display";
+  font-weight: 300;
+}
+
+.medium {
   font-family: "Clash Display";
   font-weight: 500;
 }
 
-.dark-mocha-section {
-  display: flex;
-  align-items: center;
+.section-intro {
   width: 50%;
+  padding-left: 5%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
-.dark-mocha-section h2 {
-  color: black;
+.section-intro p {
+  max-width: 40vw;
 }
 
 /*# sourceMappingURL=main.css.map */
