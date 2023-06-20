@@ -19,12 +19,18 @@ light1.position.set(0, 0, 4);
 scene.add(light1);
 
 
-const light2 = new THREE.SpotLight(0xffffff, 0);
+const light2 = new THREE.AmbientLight(0xffffff, 0);
 light2.position.set(0, -5, 4);
 scene.add(light2);
 
 
-TweenMax.to(light2, 2, {intensity: 0.6, delay: 2});
+const light3 = new THREE.SpotLight(0xff00ff, 0);
+light3.position.set(0, -5, 4);
+scene.add(light3);
+
+
+TweenMax.to(light2, 2, {intensity: 0.5, delay: 2});
+TweenMax.to(light3, 2, {intensity: 0.5, delay: 1});
 
 
 // Tailles de la fenêtre
