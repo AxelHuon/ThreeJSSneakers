@@ -1,4 +1,12 @@
-.container{
+canvas{
+  z-index: 9999;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+
+.container-intro{
   display: flex;
   background-size: cover;
   width: 100%;

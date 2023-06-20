@@ -56,21 +56,28 @@ table {
   font-family: "Clash Display";
   src: url("fonts/ClashDisplay-Variable.otf") format("opentype");
 }
-.container {
+canvas {
+  z-index: 9999;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.container-intro {
   display: flex;
   background-size: cover;
   width: 100%;
   justify-content: space-between;
   z-index: 99999;
 }
-.container .logo-nike {
+.container-intro .logo-nike {
   position: absolute;
   top: 10%;
   left: 50%;
   z-index: 99999;
   transform: translate(-50%, 0%);
 }
-.container::before {
+.container-intro::before {
   content: "";
   width: 100%;
   height: 100%;
@@ -82,7 +89,7 @@ table {
   z-index: 999;
   opacity: 0.03;
 }
-.container::after {
+.container-intro::after {
   content: "";
   width: 100%;
   height: 100%;
@@ -93,16 +100,16 @@ table {
   background-image: url("../images/background.png");
   z-index: 99;
 }
-.container > section {
+.container-intro > section {
   z-index: 9999;
 }
-.container canvas {
+.container-intro canvas {
   z-index: 9999;
   position: fixed;
   right: 0;
   top: 0;
 }
-.container .text-section {
+.container-intro .text-section {
   width: 50%;
   z-index: 9999;
 }
