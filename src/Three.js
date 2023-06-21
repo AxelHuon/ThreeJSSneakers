@@ -213,6 +213,17 @@ gsap.to('.logo-nike', {
 
 
 
+
+
+
+
+
+
+
+
+
+/*Logo Nike*/
+
 // Création de la scène
 const scene2 = new THREE.Scene();
 
@@ -226,8 +237,6 @@ let sizes2 = {
 let camera2 = new THREE.PerspectiveCamera(45, sizes2.width / sizes2.height);
 camera2.position.set(0, 0, 4);
 scene2.add(camera2);
-
-
 
 
 // Création du renderer
@@ -270,11 +279,10 @@ loader.load(
 		object.scale.set(1, 1, 1);
 		const gui = new GUI()
 		const cubeFolder = gui.addFolder('Logo')
-		
-/*		cubeFolder.add(object.rotation, 'x', 0, 20)
+		object.rotation.set(0,1,0)
+		cubeFolder.add(object.rotation, 'x', 0, 20)
 		cubeFolder.add(object.rotation, 'y', 0, 20)
 		cubeFolder.add(object.rotation, 'z', 0, 20)
-		*/
 		cubeFolder.add(object.position, 'x', -20, 20)
 		cubeFolder.add(object.position, 'y', -20, 20)
 		cubeFolder.add(object.position, 'z', -20, 20)
@@ -292,15 +300,10 @@ loader.load(
 
 
 
-
-
 // Création de la lumière
-const light4 = new THREE.AmbientLight(0xffffff, 1);
+const light4 = new THREE.DirectionalLight(0xffffff, 0.3);
 light4.position.set(0, 0, 4);
 scene2.add(light4);
-
-
-
 
 
 
