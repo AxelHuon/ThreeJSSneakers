@@ -231,6 +231,8 @@ let sizes2 = {
   height: window.innerHeight,
 };
 
+let obj; // déclare l'objet en dehors du callback de chargement
+
 // Création de la caméra
 let camera2 = new THREE.PerspectiveCamera(45, sizes2.width / sizes2.height);
 camera2.position.set(0, 0, 4);
@@ -264,68 +266,52 @@ renderer2.outputEncoding = THREE.sRGBEncoding;
 renderer2.toneMapping = THREE.ACESFilmicToneMapping;
 renderer2.toneMappingExposure = 1.25;
 
-const texture = new THREE.CanvasTexture(new FlakesTexture());
-texture.wrapS = THREE.RepeatWrapping;
-texture.wrapT = THREE.RepeatWrapping;
-texture.repeat.x = 10;
-texture.repeat.y = 6;
+var pmremGenerator = new THREE.PMREMGenerator(renderer2);
+pmremGenerator.compileEquirectangularShader();
 
-let logomaterial = {
-  clearcoat: 1.0,
-  clearcoatRoughness: 0.1,
-  metalness: 0.9,
-  roughness: 0.5,
-  color: 0x8418ca,
-  normalMap: texture,
-  normalScale: new THREE.Vector2(0.15, 0.15),
-};
+var mtlLoader = new MTLLoader();
 
-let logomaterialoption = new THREE.MeshPhysicalMaterial(logomaterial);
+new RGBELoader().load('/assets/hdr/cayley_interior_4k.hdr', function (texture) {
+  // Lumière ponctuelle pour une source de lumière intense et focalisée
+  const pointLight = new THREE.PointLight(0xffffff, 1);
+  pointLight.position.set(0, 0, 20);
+  scene2.add(pointLight);
 
-/* let ballGeo = new THREE.SphereGeometry(0.5, 64, 64);
-let ballMat = new THREE.MeshPhysicalMaterial(logomaterial);
-let ballMesh = new THREE.Mesh(ballGeo, ballMat);
-scene2.add(ballMesh); */
+  /*   let envmaploader = new THREE.PMREMGenerator(renderer2);
 
-loader.load(
-  '/assets/NikeLogo/nike.obj',
-  function (object) {
-    // Code à exécuter lorsque le fichier est chargé
-    scene2.add(object); // Ajoute l'objet à la scène
+  let envmap = envmaploader.fromCubemap(texture); */
 
-    object.traverse(function (child) {
-      if (child instanceof THREE.Mesh) {
-        child.material = logomaterialoption;
+  mtlLoader.load('/assets/NikeLogo/nike.mtl', function (materials) {
+    // Set the materials for the OBJLoader
+    materials.preload();
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    // Now load your .obj
+    objLoader.load(
+      '/assets/NikeLogo/nike.obj',
+      function (object) {
+        obj = object; // affecte l'objet à la variable obj
+
+        // Ajoutez l'objet à la scène ici
+        scene2.add(object);
+      },
+      function (xhr) {
+        // Code à exécuter pendant le chargement
+        console.log((xhr.loaded / xhr.total) * 100 + '% chargé');
+      },
+      function (error) {
+        // Code à exécuter en cas d'erreur de chargement
+        console.error('Erreur de chargement', error);
       }
-    });
-
-    object.scale.set(1, 1, 1);
-    const gui = new GUI();
-    const cubeFolder = gui.addFolder('Logo');
-    object.rotation.set(0, 1, 0);
-    cubeFolder.add(object.rotation, 'x', 0, 20);
-    cubeFolder.add(object.rotation, 'y', 0, 20);
-    cubeFolder.add(object.rotation, 'z', 0, 20);
-    cubeFolder.add(object.position, 'x', -20, 20);
-    cubeFolder.add(object.position, 'y', -20, 20);
-    cubeFolder.add(object.position, 'z', -20, 20);
-  },
-  function (xhr) {
-    // Code à exécuter pendant le chargement
-    console.log((xhr.loaded / xhr.total) * 100 + '% chargé');
-  },
-  function (error) {
-    // Code à exécuter en cas d'erreur de chargement
-    console.error('Erreur de chargement', error);
-  }
-);
-
-// Création de la lumière
-const light4 = new THREE.PointLight(0xffffff, 1);
-light4.position.set(10, 1, 10);
-scene2.add(light4);
+    );
+  });
+});
 
 const animate2 = () => {
+  if (obj) {
+    obj.rotation.y += 0.005; // change la rotation de l'objet à chaque appel de la fonction animate
+  }
   controls2.update();
   renderer2.render(scene2, camera2);
   window.requestAnimationFrame(animate2);
