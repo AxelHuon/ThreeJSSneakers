@@ -1,15 +1,8 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
 import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader.js";
-import {MTLLoader} from "three/examples/jsm/loaders/MTLLoader.js";
-import GUI from 'lil-gui';
 import {gsap, TweenMax} from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {RGBELoader} from "three/addons/loaders/RGBELoader.js";
-import {RenderPass} from "three/addons/postprocessing/RenderPass.js";
-import {EffectComposer} from "three/addons/postprocessing/EffectComposer.js";
-import {UnrealBloomPass} from "three/addons/postprocessing/UnrealBloomPass.js";
-// Enregistrez le plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -21,23 +14,19 @@ const scene = new THREE.Scene();
 const loader = new OBJLoader();
 
 // Création de la lumière
-const light1 = new THREE.AmbientLight(0xffffff, 0.2);
-light1.position.set(0, 0, 4);
-scene.add(light1);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+ambientLight.position.set(0, 0, 4);
+scene.add(ambientLight);
 
 
-const light2 = new THREE.AmbientLight(0xffffff, 0);
-light2.position.set(0, -5, 4);
-scene.add(light2);
+
+const purpleLight = new THREE.SpotLight(0xff00ff, 0);
+purpleLight.position.set(0, -5, 4);
+scene.add(purpleLight);
 
 
-const light3 = new THREE.SpotLight(0xff00ff, 0);
-light3.position.set(0, -5, 4);
-scene.add(light3);
-
-
-TweenMax.to(light2, 2, {intensity: 0.5, delay: 2});
-TweenMax.to(light3, 2, {intensity: 0.5, delay: 1});
+TweenMax.to(ambientLight, 2, {intensity: 0.7, delay: 2});
+TweenMax.to(purpleLight, 2, {intensity: 0.5, delay: 1});
 
 
 // Tailles de la fenêtre
