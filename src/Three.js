@@ -5,6 +5,10 @@ import {MTLLoader} from "three/examples/jsm/loaders/MTLLoader.js";
 import GUI from 'lil-gui';
 import {gsap, TweenMax} from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {RGBELoader} from "three/addons/loaders/RGBELoader.js";
+import {RenderPass} from "three/addons/postprocessing/RenderPass.js";
+import {EffectComposer} from "three/addons/postprocessing/EffectComposer.js";
+import {UnrealBloomPass} from "three/addons/postprocessing/UnrealBloomPass.js";
 // Enregistrez le plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,9 +79,6 @@ const controls = new OrbitControls(camera, canvas);
 controls.enabled = false;
 
 // Activer les contrôles après un délai
-setTimeout(() => {
-	controls.enabled = false;
-}, 3000);
 
 
 // Chargement des textures et de l'object
@@ -186,6 +187,8 @@ window.addEventListener('mousemove', function(event) {
 });
 
 
+
+
 // Fonction d'animation
 const animate = () => {
 	
@@ -196,15 +199,12 @@ const animate = () => {
 };
 animate();
 
-
 gsap.to('.logo-nike', {
-	top: "50%",
 	opacity: 0,
-	scale : 3.2,
 	scrollTrigger: {
 		trigger: '.section-intro',
 		start: '-30px top',
-		end: 'bottom+=100px',
+		end: 'bottom+=40px',
 		scrub: true
 	}
 });
@@ -219,99 +219,3 @@ gsap.to('.logo-nike', {
 
 
 
-
-
-
-/*Logo Nike*/
-
-// Création de la scène
-const scene2 = new THREE.Scene();
-
-// Tailles de la fenêtre
-let sizes2 = {
-	width: window.innerWidth,
-	height: window.innerHeight
-};
-
-// Création de la caméra
-let camera2 = new THREE.PerspectiveCamera(45, sizes2.width / sizes2.height);
-camera2.position.set(0, 0, 4);
-scene2.add(camera2);
-
-
-// Création du renderer
-const canvas2 = document.querySelector(".nike-logo");
-const renderer2 = new THREE.WebGLRenderer({
-	canvas: canvas2, alpha: true, antialias: true,
-});
-renderer2.toneMapping = THREE.ACESFilmicToneMapping;
-renderer2.toneMappingExposure = 1.25;
-
-// Fonction de redimensionnement
-const resize2 = () => {
-	sizes2.width = window.innerWidth
-	sizes2.height = window.innerHeight;
-	camera2.aspect = sizes2.width / sizes2.height;
-	camera2.updateProjectionMatrix();
-	renderer2.setSize(sizes2.width, sizes2.height);
-};
-
-resize2();
-
-window.addEventListener('resize', resize2);
-
-
-
-
-
-
-
-const controls2 = new OrbitControls(camera, canvas);
-controls2.enabled = false;
-
-
-loader.load(
-	'/assets/NikeLogo/nike.obj',
-	function (object) {
-		// Code à exécuter lorsque le fichier est chargé
-		scene2.add(object); // Ajoute l'objet à la scène
-		
-		object.scale.set(1, 1, 1);
-		const gui = new GUI()
-		const cubeFolder = gui.addFolder('Logo')
-		object.rotation.set(0,1,0)
-		cubeFolder.add(object.rotation, 'x', 0, 20)
-		cubeFolder.add(object.rotation, 'y', 0, 20)
-		cubeFolder.add(object.rotation, 'z', 0, 20)
-		cubeFolder.add(object.position, 'x', -20, 20)
-		cubeFolder.add(object.position, 'y', -20, 20)
-		cubeFolder.add(object.position, 'z', -20, 20)
-		
-	},
-	function (xhr) {
-		// Code à exécuter pendant le chargement
-		console.log((xhr.loaded / xhr.total * 100) + '% chargé');
-	},
-	function (error) {
-		// Code à exécuter en cas d'erreur de chargement
-		console.error('Erreur de chargement', error);
-	}
-);
-
-
-
-// Création de la lumière
-const light4 = new THREE.DirectionalLight(0xffffff, 0.3);
-light4.position.set(0, 0, 4);
-scene2.add(light4);
-
-
-
-const animate2 = () => {
-	
-	controls2.update();
-	renderer2.render(scene2, camera2);
-	window.requestAnimationFrame(animate2);
-	
-};
-animate2();
