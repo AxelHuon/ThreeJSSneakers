@@ -41,21 +41,16 @@ const scene = new THREE.Scene();
 // Chargement de la classe OBJLoader
 const loader = new OBJLoader();
 
-// Création de la lumière
-const light1 = new THREE.AmbientLight(0xffffff, 0.2);
-light1.position.set(0, 0, 4);
-scene.add(light1);
 
-const light2 = new THREE.AmbientLight(0xffffff, 0);
-light2.position.set(0, -5, 4);
-scene.add(light2);
+// Création des lumières
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+ambientLight.position.set(0, 0, 4);
+scene.add(ambientLight);
 
-const light3 = new THREE.SpotLight(0xff00ff, 0);
-light3.position.set(0, -5, 4);
-scene.add(light3);
+const purpleLight = new THREE.SpotLight(0xff00ff, 0.5);
+purpleLight.position.set(0, -5, 4);
+scene.add(purpleLight);
 
-TweenMax.to(light2, 2, { intensity: 0.5, delay: 2 });
-TweenMax.to(light3, 2, { intensity: 0.5, delay: 1 });
 
 
 // Tailles de la fenêtre
@@ -181,16 +176,16 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	});
 	
 	gsap.fromTo(
-		camera.position, // Élément cible de l'animation
+		camera.position,
 		{
 			x: -1.16,
 			y: -3.12,
 			z: 1.8,
 		},
 		{
-			x: 2, // Position finale en X
-			y: 2, // Position finale en Y
-			z: 2, // Position finale en Z
+			x: 2,
+			y: 2,
+			z: 2,
 			scrollTrigger: {
 				trigger: ".container-sneakers",
 				start: () => `top+=${window.innerHeight * 4}`, // Début de l'animation après 200vh de défilement
@@ -217,56 +212,56 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	});
 	
 	gsap.fromTo(
-		camera.position, // Élément cible de l'animation
+		camera.position,
 		{
-			x: 2, // Position finale en X
-			y: 2, // Position finale en Y
-			z: 2, // Position finale en Z
+			x: 2,
+			y: 2,
+			z: 2,
 		},
 		{
-			x: 0, // Position finale en X
-			y: 0, // Position finale en Y
-			z: 4, // Position finale en Z
+			x: 0,
+			y: 0,
+			z: 4,
 			scrollTrigger: {
 				trigger: ".container-sneakers",
-				start: () => `top+=${window.innerHeight * 7}`, // Début de l'animation après 200vh de défilement
-				end: () => `top+=${window.innerHeight * 8}`, // Fin de l'animation après 220vh de défilement
+				start: () => `top+=${window.innerHeight * 7}`,
+				end: () => `top+=${window.innerHeight * 8}`,
 				scrub: true,
 			},
 		}
 	);
 	
 	gsap.fromTo(
-		travisScottMocha.position, // Élément cible de l'animation
+		travisScottMocha.position,
 		{
 			y: 0.34,
-			x: 0, // Position finale en Y
-			z: 0, // Position finale en Z
+			x: 0,
+			z: 0,
 		},
 		{
-			x: 0, // Position finale en X
-			y: 0, // Position finale en Y
-			z: 0, // Position finale en Z
+			x: 0,
+			y: 0,
+			z: 0,
 			scrollTrigger: {
 				trigger: ".container-sneakers",
-				start: () => `top+=${window.innerHeight * 7}`, // Début de l'animation après 200vh de défilement
-				end: () => `top+=${window.innerHeight * 8}`, // Fin de l'animation après 220vh de défilement
+				start: () => `top+=${window.innerHeight * 7}`,
+				end: () => `top+=${window.innerHeight * 8}`,
 				scrub: true,
 			},
 		}
 	);
 	
 	gsap.fromTo(
-		travisScottMocha.rotation, // Élément cible de l'animation
+		travisScottMocha.rotation,
 		{
 			x: 0.3,
 			y: 3.61,
 			z: -1,
 		},
 		{
-			x: 0, // Position finale en X
-			y: 0, // Position finale en Y
-			z: 0, // Position finale en Z
+			x: 0,
+			y: 0,
+			z: 0,
 			scrollTrigger: {
 				trigger: ".container-sneakers",
 				start: () => `top+=${window.innerHeight * 7}`, // Début de l'animation après 200vh de défilement
@@ -277,16 +272,16 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	);
 	
 	gsap.fromTo(
-		travisScottMocha.rotation, // Élément cible de l'animation
+		travisScottMocha.rotation,
 		{
-			x: 0, // Position finale en X
-			y: 0, // Position finale en Y
-			z: 0, // Position finale en Z
+			x: 0,
+			y: 0,
+			z: 0,
 		},
 		{
-			x: 0, // Position finale en X
-			y: -9.39, // Position finale en Y
-			z: 0, // Position finale en Z
+			x: 0,
+			y: -9.39,
+			z: 0,
 			scrollTrigger: {
 				trigger: ".container-sneakers",
 				start: () => `top+=${window.innerHeight * 8}`, // Début de l'animation après 200vh de défilement
@@ -297,16 +292,16 @@ loader.load('/assets/sneakers/travisScottMocha/baked_mesh_modified.obj', functio
 	);
 	
 	gsap.fromTo(
-		camera.position, // Élément cible de l'animation
+		camera.position,
 		{
-			x: 0, // Position finale en X
-			y: 0, // Position finale en Y
-			z: 4, // Position finale en Z
+			x: 0,
+			y: 0,
+			z: 4,
 		},
 		{
-			x: 0, // Position finale en X
-			y: 0, // Position finale en Y
-			z: 10, // Position finale en Z
+			x: 0,
+			y: 0,
+			z: 10,
 			scrollTrigger: {
 				trigger: ".container-sneakers",
 				start: () => `top+=${window.innerHeight * 8}`, // Début de l'animation après 200vh de défilement
@@ -328,6 +323,7 @@ let clock = new THREE.Clock();
 
 // Fonction d'animation
 const animate = () => {
+	/*Animation Floating*/
 	const time = clock.getElapsedTime();
 	travisScottMocha.position.y = Math.cos(time * 1.5) * 0.1;
 	controls.update();
