@@ -266,20 +266,35 @@ renderer2.outputEncoding = THREE.sRGBEncoding;
 renderer2.toneMapping = THREE.ACESFilmicToneMapping;
 renderer2.toneMappingExposure = 1.25;
 
-var pmremGenerator = new THREE.PMREMGenerator(renderer2);
-pmremGenerator.compileEquirectangularShader();
+let envmaploader = new THREE.PMREMGenerator(renderer2);
 
 var mtlLoader = new MTLLoader();
 
-new RGBELoader().load('/assets/hdr/cayley_interior_4k.hdr', function (texture) {
+new RGBELoader().load('/assets/hdr/cayley_interior_4k.hdr', function (hdmr) {
+  let envmap = envmaploader.fromCubemap(hdmr);
   // Lumière ponctuelle pour une source de lumière intense et focalisée
   const pointLight = new THREE.PointLight(0xffffff, 1);
   pointLight.position.set(0, 0, 20);
   scene2.add(pointLight);
 
-  /*   let envmaploader = new THREE.PMREMGenerator(renderer2);
+  let texture = new THREE.CanvasTexture(new FlakesTexture());
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.x = 10;
+  texture.repeat.y = 6;
 
-  let envmap = envmaploader.fromCubemap(texture); */
+  const materialOptions = {
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.1,
+    metalness: 1.0,
+    roughness: 0.0,
+    color: 0x8418ca,
+    normalMap: texture,
+    normalScale: new THREE.Vector2(0.15, 0.15),
+    envMap: envmap.texture,
+  };
+
+  let logomaterial = new THREE.MeshPhysicalMaterial(materialOptions);
 
   mtlLoader.load('/assets/NikeLogo/nike.mtl', function (materials) {
     // Set the materials for the OBJLoader
@@ -293,6 +308,12 @@ new RGBELoader().load('/assets/hdr/cayley_interior_4k.hdr', function (texture) {
       function (object) {
         obj = object; // affecte l'objet à la variable obj
 
+        object.traverse(function (child) {
+          if (child instanceof THREE.Mesh) {
+            // Apply the material to each mesh
+            child.material = logomaterial;
+          }
+        });
         // Ajoutez l'objet à la scène ici
         scene2.add(object);
       },
