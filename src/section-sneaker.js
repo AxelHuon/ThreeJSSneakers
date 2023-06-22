@@ -1,16 +1,13 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
-import GUI from 'lil-gui';
+
 import { gsap, TweenMax } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+
 // Enregistrez le plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
-
-
-const windowHeight = window.innerHeight;
-const scrollHeight = document.body.scrollHeight;
 
 
 gsap.to('.container-sneakers', {
