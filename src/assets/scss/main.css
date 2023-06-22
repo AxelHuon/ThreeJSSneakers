@@ -141,12 +141,12 @@ body {
 }
 
 .container-logo-jordan {
+  display: none;
   overflow: hidden;
   position: fixed;
   top: 0;
   z-index: 9999999999;
   background: #070707 !important;
-  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;

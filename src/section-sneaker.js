@@ -10,6 +10,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 
+
+
 gsap.to('.container-sneakers', {
 	opacity: 1,
 	scrollTrigger: {
@@ -19,6 +21,19 @@ gsap.to('.container-sneakers', {
 		scrub: true,
 	}
 });
+
+
+
+gsap.to('.container-logo-jordan', {
+	display: "flex",
+	scrollTrigger: {
+		trigger: '.container-logo-jordan',
+		start: () => `top+=${window.innerHeight * 9}`, // Début de l'animation après 200vh de défilement
+		end: () => `top+=${window.innerHeight * 9.1}`, // Début de l'animation après 200vh de défilement
+		scrub: true,
+	}
+});
+
 
 gsap.to('.container-logo-jordan', {
 	opacity: 0.9,
