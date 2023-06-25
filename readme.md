@@ -1,8 +1,3 @@
-# Cours section-intro.js - Leonard de Vinci 
-
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-
 ``` bash
 # Install dependencies 
 npm install
